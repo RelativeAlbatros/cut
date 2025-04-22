@@ -1,6 +1,7 @@
 PREFIX := /usr/local
 SRC := src/*.c
-CCFLAGS := -std=c99 -Wall -Wextra -pedantic
+CCFLAGS := -std=c99
+CCFLAGS-DBG := -std=c99 -Wall -Wextra -pedantic -Wsign-conversion
 
 options:
 	@echo cut build options:
@@ -15,7 +16,8 @@ cut: ${SRC}
 all: options cut
 
 debug: ${SRC}
-	${CC} -g -o bin/$@ $? ${CCFLAGS}
+	@mkdir -p bin/
+	${CC} -g -o bin/$@ $? ${CCFLAGS-DBG}
 
 clean:
 	rm -f bin/*
